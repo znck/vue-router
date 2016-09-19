@@ -112,24 +112,24 @@ Examples:
 | /foo/*any/bar | /foo/a/b/bar | `{ any: 'a/b' }` |
 
 #### Matching Precedence
-The routes defined inside the array follows a simple rule of precedence: the latter overrides the former.
+What comes first in the `routes` array has the highest priority, and will get matched first.
 
 Example:
 ``` js
 var router = new VueRouter({
   routes: [{
+    path: '/user/foo',
+    component: {
+       template: '<p>This page is only for user Foo!</p>'
+    }
+  }, {
     path: '/user/:username',
     component: {
       template: '<p>username is {{$route.params.username}}</p>'
     }
-  }, {
-    path: '/user/foo',
-    component: {
-      template: '<p>This page is only for user Foo!</p>'
-    }
   }]
 })
 
-// Now '/user/foo' shows 'This page is only for user Foo!' 
+// Here '/user/foo' shows 'This page is only for user Foo!'
 // instead of 'username is foo'
 ```
